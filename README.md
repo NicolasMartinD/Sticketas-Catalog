@@ -60,3 +60,11 @@ No necesita backend para funcionar como catálogo.
 ## Ajuste Colecciones
 - Hover de los botones de las cards: fucsia `#F51B78`, texto blanco.
 - Estrella de la card Personal Things Club: bordó `#7A2345`.
+
+## CORE v3 — fucsia como acento
+- Se mantienen todas las funcionalidades y cambios de CORE v2.
+- Las superficies grandes fucsias pasan a rosas suaves:
+  - Rosa suave: `#F7D9E4`
+  - Rosa muy claro: `#FCEBF1`
+- El fucsia `#F51B78` queda reservado para detalles, hover, labels, indicadores y CTAs puntuales.
+- La estrella de Personal Things Club continúa en bordó `#7A2345`.

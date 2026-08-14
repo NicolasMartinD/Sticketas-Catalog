@@ -33,7 +33,7 @@ img{display:block;width:100%}
 .cart-btn{padding:0 15px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .cart-btn span{background:var(--pink);border-radius:999px;padding:2px 7px;margin-left:5px}
 .menu-btn{display:none;padding:0 15px}
-.hero{min-height:calc(100vh - 122px);position:relative;padding:8vh 5vw 55px;display:grid;grid-template-columns:.82fr 1.18fr;gap:5vw;align-items:center;border-bottom:1px solid var(--line);overflow:hidden;}
+.hero{min-height:calc(100vh - 122px);position:relative;padding:8vh 5vw 55px;display:grid;grid-template-columns:.82fr 1.18fr;gap:5vw;align-items:center;border-bottom:1px solid var(--line);overflow:hidden}
 .hero-copy{z-index:5;max-width:620px}
 .eyebrow,.section-kicker,.mini-label{font-size:10px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
 .hero h1{font-family:"Fraunces",serif;font-size:clamp(58px,7.4vw,118px);line-height:.82;letter-spacing:-.065em;margin:25px 0 30px}
@@ -43,7 +43,7 @@ img{display:block;width:100%}
 .pill{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:0 22px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);transition:transform .2s,background .2s}
 .pill:hover{transform:translateY(-2px)}
 .pill-dark{background:var(--ink);color:var(--white)}
-.pill-cream{background:var(--cream); color: #171717;}
+.pill-cream{background:var(--cream); color: var(--ink);}
 .pill-pink{background:var(--pink)}
 .text-link{font-size:12px;font-weight:700;border-bottom:1px solid currentColor;padding-bottom:3px}
 .hero-visual{height:min(70vh,760px);min-height:530px;position:relative}
@@ -545,4 +545,71 @@ a:not(.pill):not(.brand-logo):hover,
 /* La estrella de la card Personal Things Club usa el bordó CORE */
 .collection-pink .big-star{
   color:#7A2345;
+}
+
+/* =========================================================
+   STICKETAS CORE v3 — superficies suaves
+   El fucsia queda reservado para acentos e interacción.
+   ========================================================= */
+
+:root{
+  --pink-soft:#F7D9E4;
+  --pink-mist:#FCEBF1;
+}
+
+/* Superficies grandes: rosa suave en lugar de fucsia */
+.paper-a{
+  background:var(--pink-soft);
+}
+
+.collection-pink{
+  background:var(--pink-soft);
+}
+
+.ideas{
+  background:var(--pink-mist);
+  color:var(--ink);
+}
+
+/* Recuperar contraste de la sección Ideas sobre fondo claro */
+.ideas .section-kicker{
+  color:var(--fuchsia);
+  opacity:1;
+}
+
+.ideas-copy p{
+  color:#504C47;
+}
+
+/* El CTA sigue usando el sistema oscuro/fucsia al interactuar */
+.ideas .pill-dark{
+  background:var(--ink);
+  color:var(--white);
+  border-color:var(--ink);
+}
+
+.ideas .pill-dark:hover{
+  background:var(--fuchsia);
+  color:var(--white);
+  border-color:var(--fuchsia);
+}
+
+/* La estrella conserva el bordó solicitado */
+.collection-pink .big-star{
+  color:var(--bordeaux);
+}
+
+/* El fucsia permanece como detalle de identidad */
+.cart-btn span,
+.custom-stamp,
+.pill-pink,
+.quick-add:hover{
+  background:var(--fuchsia);
+}
+
+.manifesto p,
+.manifesto em,
+.newsletter .section-kicker,
+.newsletter p{
+  color:var(--fuchsia);
 }
