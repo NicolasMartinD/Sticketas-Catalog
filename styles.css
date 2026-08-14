@@ -1,12 +1,14 @@
  :root{
-  --pink:#F8C8D7;
-  --pink-deep:#D984A3;
-  --cream:#FAF1E0;
-  --ink:#1D1D1D;
+  --pink:#F51B78;
+  --pink-deep:#7A2345;
+  --cream:#F8F3EC;
+  --ink:#171717;
   --white:#FFFFFF;
   --muted:#756F68;
-  --line:rgba(29,29,29,.16);
+  --line:rgba(23,23,23,.16);
   --radius:28px;
+  --fuchsia:#F51B78;
+  --bordeaux:#7A2345;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -31,7 +33,7 @@ img{display:block;width:100%}
 .cart-btn{padding:0 15px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .cart-btn span{background:var(--pink);border-radius:999px;padding:2px 7px;margin-left:5px}
 .menu-btn{display:none;padding:0 15px}
-.hero{min-height:calc(100vh - 122px);position:relative;padding:8vh 5vw 55px;display:grid;grid-template-columns:.82fr 1.18fr;gap:5vw;align-items:center;border-bottom:1px solid var(--line);overflow:hidden}
+.hero{min-height:calc(100vh - 122px);position:relative;padding:8vh 5vw 55px;display:grid;grid-template-columns:.82fr 1.18fr;gap:5vw;align-items:center;border-bottom:1px solid var(--line);overflow:hidden;}
 .hero-copy{z-index:5;max-width:620px}
 .eyebrow,.section-kicker,.mini-label{font-size:10px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
 .hero h1{font-family:"Fraunces",serif;font-size:clamp(58px,7.4vw,118px);line-height:.82;letter-spacing:-.065em;margin:25px 0 30px}
@@ -41,7 +43,7 @@ img{display:block;width:100%}
 .pill{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:0 22px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);transition:transform .2s,background .2s}
 .pill:hover{transform:translateY(-2px)}
 .pill-dark{background:var(--ink);color:var(--white)}
-.pill-cream{background:var(--cream)}
+.pill-cream{background:var(--cream); color: #171717;}
 .pill-pink{background:var(--pink)}
 .text-link{font-size:12px;font-weight:700;border-bottom:1px solid currentColor;padding-bottom:3px}
 .hero-visual{height:min(70vh,760px);min-height:530px;position:relative}
@@ -208,4 +210,339 @@ footer{background:#fff;padding:70px 5vw 30px}
  footer{padding:60px 18px 25px}
  .footer-links{justify-content:flex-start;margin:45px 0 0;gap:50px}
  .footer-bottom{gap:20px}
+}
+
+
+/* =========================================================
+   HEADER STICKETAS — logo real + buscador original + carrito
+   ========================================================= */
+
+.site-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:96px;
+  padding:0 4vw;
+  gap:24px;
+}
+
+.brand-logo{
+  display:flex;
+  align-items:center;
+  flex:0 1 auto;
+  min-width:0;
+}
+
+.brand-logo img{
+  display:block;
+  width:clamp(210px,23vw,365px);
+  max-height:72px;
+  object-fit:contain;
+  object-position:left center;
+}
+
+/* El buscador y el carrito conservan exactamente el lenguaje visual original */
+.site-header .header-actions{
+  margin-left:auto;
+  justify-self:auto;
+}
+
+.site-header .icon-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.footer-logo{
+  display:block;
+  width:min(330px,72vw);
+  height:auto;
+  object-fit:contain;
+  object-position:left center;
+}
+
+@media(max-width:1050px){
+  .site-header{
+    display:flex;
+    grid-template-columns:none;
+  }
+
+  .site-header .header-actions{
+    grid-column:auto;
+  }
+}
+
+@media(max-width:700px){
+  .site-header{
+    height:76px;
+    min-height:76px;
+    padding:0 18px;
+    gap:10px;
+  }
+
+  .brand-logo img{
+    width:clamp(145px,46vw,215px);
+    max-height:54px;
+  }
+
+  /* En la versión original .icon-btn se ocultaba en mobile.
+     Lo mantenemos visible porque ahora es parte esencial del header. */
+  .site-header .icon-btn{
+    display:inline-flex;
+    width:36px;
+    height:36px;
+    flex:0 0 36px;
+  }
+
+  .site-header .cart-btn{
+    height:36px;
+    padding:0 11px;
+    font-size:10px;
+  }
+}
+
+@media (min-width: 701px) {
+  .site-header {
+    position: sticky;
+  }
+
+  .brand-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .site-header .header-actions {
+    margin-left: auto;
+  }
+}
+
+
+/* =========================================================
+   STICKETAS CORE — client palette + interaction system
+   ========================================================= */
+
+/* Palette application */
+body,
+.search-panel,
+.cart-drawer{
+  background:var(--cream);
+  color:var(--ink);
+}
+
+.site-header{
+  background:rgba(248,243,236,.92);
+  border-bottom-color:rgba(23,23,23,.16);
+}
+
+.announcement-accent,
+.accent-star,
+.section-kicker,
+.mini-label{
+  color:var(--fuchsia);
+}
+
+/* Client requested hero primary action */
+.pill-fuchsia{
+  background:var(--fuchsia);
+  color:var(--white);
+  border-color:var(--fuchsia);
+}
+
+.pill-fuchsia:hover{
+  background:var(--bordeaux);
+  border-color:var(--bordeaux);
+}
+
+/* NEW DROP */
+.tag-new{
+  background:var(--fuchsia);
+  color:var(--white);
+}
+
+/* Preserve strong editorial black where appropriate */
+.hero-foot,
+.about-label,
+.product-info h3,
+.product-price{
+  color:var(--ink);
+}
+
+/* CUSTOM product marker */
+.product-badge-accent{
+  background:var(--fuchsia);
+  border-color:var(--fuchsia);
+  color:var(--white);
+}
+
+/* Cart count: subtle fuchsia dot */
+.cart-btn span{
+  display:inline-grid;
+  place-items:center;
+  min-width:20px;
+  height:20px;
+  padding:0 6px;
+  margin-left:6px;
+  border-radius:999px;
+  background:var(--fuchsia);
+  color:var(--white);
+  font-size:10px;
+  line-height:1;
+}
+
+/* Interactive system */
+a,
+button,
+.icon-btn,
+.cart-btn,
+.collection-card,
+.product-media,
+.idea-card,
+.custom-visual,
+.search-result{
+  transition:
+    color .2s ease,
+    background-color .2s ease,
+    border-color .2s ease,
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+/* Textual links turn fuchsia */
+a:not(.pill):not(.brand-logo):hover,
+.text-link:hover,
+.footer-links a:hover{
+  color:var(--fuchsia);
+}
+
+/* Search icon becomes fuchsia without changing button shape */
+.icon-btn:hover{
+  color:var(--fuchsia);
+  border-color:var(--fuchsia);
+  transform:translateY(-2px);
+}
+
+.cart-btn:hover{
+  border-color:var(--fuchsia);
+  color:var(--fuchsia);
+  transform:translateY(-2px);
+}
+
+/* Small, controlled movement on buttons */
+.pill:hover,
+.filter-chip:hover,
+.quick-add:hover,
+.checkout-btn:hover{
+  transform:translateY(-2px);
+}
+
+.filter-chip.active,
+.filter-chip:hover{
+  background:var(--fuchsia);
+  border-color:var(--fuchsia);
+  color:var(--white);
+}
+
+.quick-add:hover{
+  background:var(--fuchsia);
+  border-color:var(--fuchsia);
+  color:var(--white);
+  transform:translateY(-2px) rotate(5deg);
+}
+
+/* Fuchsia border appears rather than a heavy shadow */
+.collection-card,
+.product-media,
+.idea-card,
+.custom-visual{
+  outline:1px solid transparent;
+  outline-offset:-1px;
+}
+
+.collection-card:hover,
+.product-card:hover .product-media,
+.idea-card:hover,
+.custom-visual:hover{
+  outline-color:var(--fuchsia);
+}
+
+.collection-card:hover{
+  transform:translateY(-3px);
+}
+
+.idea-card:hover{
+  box-shadow:0 6px 0 rgba(245,27,120,.12);
+}
+
+.search-result:hover{
+  border-color:var(--fuchsia);
+  color:var(--fuchsia);
+}
+
+/* The draggable custom stamp is part of the core system */
+.custom-stamp{
+  background:var(--fuchsia);
+  color:var(--white);
+}
+
+/* Keep the previous soft editorial sections, now within the core palette */
+.collection-pink,
+.ideas,
+.paper-a{
+  background:var(--fuchsia);
+}
+
+/* Avoid losing readability on the full-fuchsia inspiration band */
+.ideas,
+.ideas .section-kicker{
+  color:var(--white);
+}
+.ideas .section-kicker{
+  opacity:.9;
+}
+.ideas .pill-dark{
+  background:var(--ink);
+  color:var(--white);
+  border-color:var(--ink);
+}
+
+/* Bordó is a secondary accent, not a competing primary color */
+.hero h1 em,
+.manifesto em{
+  color:var(--bordeaux);
+}
+
+/* On the black manifesto the fuchsia remains the brighter accent */
+.manifesto p{
+  color:var(--fuchsia);
+}
+.manifesto em{
+  color:var(--fuchsia);
+}
+
+@media (hover:none){
+  .collection-card:hover,
+  .product-card:hover .product-media,
+  .idea-card:hover,
+  .custom-visual:hover{
+    outline-color:transparent;
+  }
+}
+
+
+/* =========================================================
+   STICKETAS CORE — ajustes Colecciones
+   ========================================================= */
+
+/* Los CTA crema de las cards pasan a fucsia en hover */
+.collection-card .pill-cream:hover{
+  background:#F51B78;
+  color:#FFFFFF;
+  border-color:#F51B78;
+  transform:translateY(-2px);
+}
+
+/* La estrella de la card Personal Things Club usa el bordó CORE */
+.collection-pink .big-star{
+  color:#7A2345;
 }

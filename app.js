@@ -30,7 +30,7 @@ function renderProducts(filter="all"){
     <article class="product-card">
       <div class="product-media">
         <img src="${p.image}" alt="${p.name}">
-        <span class="product-badge">${p.badge}</span>
+        <span class="product-badge ${p.badge === "CUSTOM" ? "product-badge-accent" : ""}">${p.badge}</span>
         <button class="quick-add" data-add="${p.id}" aria-label="Agregar ${p.name} al carrito">+</button>
       </div>
       <div class="product-info">
@@ -123,7 +123,7 @@ document.querySelector(".checkout-btn").addEventListener("click",()=>{
     const p=products.find(p=>p.id===i.id);
     return `${i.qty}x ${p.name}`;
   }).join("%0A");
-  alert("Demo: acá puede abrirse WhatsApp con el pedido prearmado. Reemplazamos el numero y activamos el link cuando tengamos todo");
+  alert("Demo: acá puede abrirse WhatsApp con el pedido prearmado. Despues reemplazamos por el numero real");
 });
 
 const searchPanel=document.querySelector("#searchPanel");
@@ -152,7 +152,7 @@ searchInput.addEventListener("input",()=>{
 
 document.querySelector("#newsletterForm").addEventListener("submit",e=>{
   e.preventDefault();
-  document.querySelector("#newsletterMsg").textContent="Listo ✦ esto se conectaría a tu plataforma de email. La idea es que demos a los clientes un newsletter o algun que otro cuponcito para enganche";
+  document.querySelector("#newsletterMsg").textContent="Listo ✦ Esto se conectaría a tu plataforma de email. La idea es enviar newsletters y algun que otro cupon para enganche";
   e.currentTarget.reset();
 });
 
@@ -198,11 +198,6 @@ document.querySelectorAll("[data-draggable]").forEach(el=>{
   };
   el.addEventListener("pointerup",end);
   el.addEventListener("pointercancel",end);
-});
-
-document.querySelector("#menuBtn").addEventListener("click",()=>{
-  const target=document.querySelector("#colecciones");
-  target.scrollIntoView({behavior:"smooth"});
 });
 
 renderProducts();
