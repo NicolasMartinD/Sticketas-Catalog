@@ -92,3 +92,23 @@ No hace falta modificar el HTML.
 - `scroll-snap` para acomodar cada foto al desplazarse.
 - Inclinación automática izquierda / derecha / recta.
 - Sin dependencias externas.
+
+
+## CORE v5 — Producto lifestyle + feedback de carrito
+
+Para usar una foto secundaria real en un producto:
+
+```js
+{
+  image: "./assets/images/products/producto.webp",
+  hoverImage: "./assets/images/lifestyle/producto-en-uso.webp"
+}
+```
+
+En desktop la segunda imagen aparece con hover. En dispositivos táctiles se conserva la foto principal.
+
+Al agregar:
+- `+` cambia brevemente a `✓`
+- aparece “added to your things”
+- el botón se vuelve fucsia
+- el contador del carrito hace un pequeño pop

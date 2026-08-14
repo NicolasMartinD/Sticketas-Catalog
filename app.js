@@ -1,12 +1,12 @@
 const products = [
-  {id:1,name:"Sticker Sheet — Main Character",subtitle:"Vinilo mate · resistente al agua",price:4200,category:"stickers",badge:"BESTSELLER",image:"./assets/product-sheet.svg"},
-  {id:2,name:"Mini Tags — Pretty Things",subtitle:"Pack x12 · papel premium",price:3600,category:"papeleria",badge:"NEW",image:"./assets/product-tags.svg"},
-  {id:3,name:"Sticker Pack — Desk Crush",subtitle:"Pack x8 · troquel individual",price:4800,category:"stickers",badge:"DROP 01",image:"./assets/product-pack.svg"},
-  {id:4,name:"Name Labels — Your Version",subtitle:"Personalizadas · 24 unidades",price:5900,category:"personalizados",badge:"CUSTOM",image:"./assets/product-labels.svg"},
-  {id:5,name:"Gift Kit — Wrap It Cute",subtitle:"Tags + stickers + tarjeta",price:7900,category:"papeleria",badge:"GIFTABLE",image:"./assets/product-giftkit.svg"},
-  {id:6,name:"Business Pack — Tiny Branding",subtitle:"Etiquetas para emprendimientos",price:11500,category:"personalizados",badge:"CUSTOM",image:"./assets/product-business.svg"},
-  {id:7,name:"Sticker Duo — Soft Reminder",subtitle:"Vinilo transparente · pack x2",price:2600,category:"stickers",badge:"NEW",image:"./assets/product-duo.svg"},
-  {id:8,name:"Mini Note Set — Things To Do",subtitle:"Block + mini stickers",price:6500,category:"papeleria",badge:"STICKETAS PICK",image:"./assets/product-notes.svg"}
+  {id:1,name:"Sticker Sheet — Main Character",subtitle:"Vinilo mate · resistente al agua",price:4200,category:"stickers",badge:"BESTSELLER",image:"./assets/product-sheet.svg",hoverImage:"./assets/idea-notebook.svg"},
+  {id:2,name:"Mini Tags — Pretty Things",subtitle:"Pack x12 · papel premium",price:3600,category:"papeleria",badge:"NEW",image:"./assets/product-tags.svg",hoverImage:"./assets/idea-package.svg"},
+  {id:3,name:"Sticker Pack — Desk Crush",subtitle:"Pack x8 · troquel individual",price:4800,category:"stickers",badge:"DROP 01",image:"./assets/product-pack.svg",hoverImage:"./assets/idea-notebook.svg"},
+  {id:4,name:"Name Labels — Your Version",subtitle:"Personalizadas · 24 unidades",price:5900,category:"personalizados",badge:"CUSTOM",image:"./assets/product-labels.svg",hoverImage:"./assets/idea-cup.svg"},
+  {id:5,name:"Gift Kit — Wrap It Cute",subtitle:"Tags + stickers + tarjeta",price:7900,category:"papeleria",badge:"GIFTABLE",image:"./assets/product-giftkit.svg",hoverImage:"./assets/idea-package.svg"},
+  {id:6,name:"Business Pack — Tiny Branding",subtitle:"Etiquetas para emprendimientos",price:11500,category:"personalizados",badge:"CUSTOM",image:"./assets/product-business.svg",hoverImage:"./assets/idea-package.svg"},
+  {id:7,name:"Sticker Duo — Soft Reminder",subtitle:"Vinilo transparente · pack x2",price:2600,category:"stickers",badge:"NEW",image:"./assets/product-duo.svg",hoverImage:"./assets/idea-cup.svg"},
+  {id:8,name:"Mini Note Set — Things To Do",subtitle:"Block + mini stickers",price:6500,category:"papeleria",badge:"STICKETAS PICK",image:"./assets/product-notes.svg",hoverImage:"./assets/idea-notebook.svg"}
 ];
 
 const grid = document.querySelector("#productGrid");
@@ -29,9 +29,16 @@ function renderProducts(filter="all"){
   grid.innerHTML = list.map(p=>`
     <article class="product-card">
       <div class="product-media">
-        <img src="${p.image}" alt="${p.name}">
+        <img class="product-image product-image-primary" src="${p.image}" alt="${p.name}">
+        ${p.hoverImage ? `<img class="product-image product-image-hover" src="${p.hoverImage}" alt="" aria-hidden="true">` : ""}
         <span class="product-badge ${p.badge === "CUSTOM" ? "product-badge-accent" : ""}">${p.badge}</span>
-        <button class="quick-add" data-add="${p.id}" aria-label="Agregar ${p.name} al carrito">+</button>
+
+        <div class="quick-add-wrap">
+          <span class="add-feedback" aria-hidden="true">added to your things</span>
+          <button class="quick-add" data-add="${p.id}" aria-label="Agregar ${p.name} al carrito">
+            <span class="quick-add-symbol">+</span>
+          </button>
+        </div>
       </div>
       <div class="product-info">
         <h3>${p.name}</h3>
@@ -53,8 +60,34 @@ filterButtons.forEach(btn=>{
 grid.addEventListener("click",e=>{
   const btn = e.target.closest("[data-add]");
   if(!btn) return;
+
+  showAddFeedback(btn);
   addToCart(Number(btn.dataset.add));
 });
+
+
+function showAddFeedback(btn){
+  const wrap = btn.closest(".quick-add-wrap");
+  const symbol = btn.querySelector(".quick-add-symbol");
+
+  btn.classList.remove("is-added");
+  wrap?.classList.remove("show-feedback");
+  void btn.offsetWidth;
+
+  btn.classList.add("is-added");
+  wrap?.classList.add("show-feedback");
+  if(symbol) symbol.textContent = "✓";
+
+  cartCount.classList.remove("cart-count-pop");
+  void cartCount.offsetWidth;
+  cartCount.classList.add("cart-count-pop");
+
+  window.setTimeout(()=>{
+    btn.classList.remove("is-added");
+    wrap?.classList.remove("show-feedback");
+    if(symbol) symbol.textContent = "+";
+  }, 900);
+}
 
 function addToCart(id){
   const item = cart.find(i=>i.id===id);
@@ -65,10 +98,14 @@ function addToCart(id){
   openCart();
 }
 
-function removeFromCart(id){
-  cart = cart.filter(i=>i.id!==id);
-  persistCart();
-  renderCart();
+function removeFromCart(id, element) {
+  element.classList.add("is-removing");
+
+  setTimeout(() => {
+    cart = cart.filter(i => i.id !== id);
+    persistCart();
+    renderCart();
+  }, 280);
 }
 
 function persistCart(){
@@ -97,9 +134,16 @@ function renderCart(){
   cartTotal.textContent=money(total);
 }
 
-cartItems.addEventListener("click",e=>{
-  const btn=e.target.closest("[data-remove]");
-  if(btn) removeFromCart(Number(btn.dataset.remove));
+cartItems.addEventListener("click", e => {
+  const btn = e.target.closest("[data-remove]");
+  if (!btn) return;
+
+  const item = btn.closest(".cart-item");
+
+  removeFromCart(
+    Number(btn.dataset.remove),
+    item
+  );
 });
 
 function openCart(){
