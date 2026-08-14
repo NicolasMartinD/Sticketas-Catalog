@@ -200,5 +200,80 @@ document.querySelectorAll("[data-draggable]").forEach(el=>{
   el.addEventListener("pointercancel",end);
 });
 
+
+/* =========================================================
+   STICKETAS IN REAL LIFE — galería escalable
+   Agregá nuevos objetos a realLifeItems para sumar imágenes.
+   ========================================================= */
+
+const realLifeItems = [
+  {
+    image: "./assets/idea-notebook.svg",
+    alt: "Notebook decorada con stickers Sticketas",
+    caption: "your notes, but cuter"
+  },
+  {
+    image: "./assets/idea-package.svg",
+    alt: "Packaging decorado con etiquetas Sticketas",
+    caption: "packaging crush"
+  },
+  {
+    image: "./assets/idea-cup.svg",
+    alt: "Vaso personalizado con stickers Sticketas",
+    caption: "everyday things club"
+  },
+  {
+    image: "./assets/idea-notebook.svg",
+    alt: "Agenda y papelería intervenida con Sticketas",
+    caption: "little details, big mood"
+  },
+  {
+    image: "./assets/idea-package.svg",
+    alt: "Packaging creativo con detalles Sticketas",
+    caption: "made to make it yours"
+  }
+];
+
+const lookbook = document.querySelector("#lookbook");
+const ideasPrev = document.querySelector("#ideasPrev");
+const ideasNext = document.querySelector("#ideasNext");
+
+function getTiltClass(index){
+  const pattern = ["tilt-left", "tilt-right", ""];
+  return pattern[index % pattern.length];
+}
+
+function renderRealLife(){
+  if(!lookbook) return;
+
+  lookbook.innerHTML = realLifeItems.map((item, index) => `
+    <figure class="idea-card ${getTiltClass(index)}">
+      <img src="${item.image}" alt="${item.alt}" loading="lazy" />
+      <figcaption>${item.caption}</figcaption>
+    </figure>
+  `).join("");
+}
+
+function scrollIdeas(direction){
+  if(!lookbook) return;
+
+  const firstCard = lookbook.querySelector(".idea-card");
+  const gap = 20;
+  const amount = firstCard
+    ? firstCard.getBoundingClientRect().width + gap
+    : lookbook.clientWidth * 0.75;
+
+  lookbook.scrollBy({
+    left: amount * direction,
+    behavior: "smooth"
+  });
+}
+
+ideasPrev?.addEventListener("click", () => scrollIdeas(-1));
+ideasNext?.addEventListener("click", () => scrollIdeas(1));
+
+renderRealLife();
+
+
 renderProducts();
 renderCart();

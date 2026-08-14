@@ -613,3 +613,93 @@ a:not(.pill):not(.brand-logo):hover,
 .newsletter p{
   color:var(--fuchsia);
 }
+
+
+/* =========================================================
+   STICKETAS IN REAL LIFE — slider escalable
+   ========================================================= */
+
+.ideas-gallery{
+  min-width:0;
+  position:relative;
+}
+
+.ideas-controls{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin:0 8px 14px 0;
+}
+
+.ideas-arrow{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--ink);
+  border-radius:50%;
+  background:var(--cream);
+  color:var(--ink);
+  font-size:18px;
+  cursor:pointer;
+  transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease;
+}
+
+.ideas-arrow:hover{
+  background:#F51B78;
+  color:#FFFFFF;
+  border-color:#F51B78;
+  transform:translateY(-2px);
+}
+
+.ideas-strip{
+  display:flex;
+  gap:20px;
+  align-items:center;
+  overflow-x:auto;
+  overflow-y:visible;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  padding:28px 18px 42px;
+  scrollbar-width:none;
+}
+
+.ideas-strip::-webkit-scrollbar{
+  display:none;
+}
+
+.ideas-strip .idea-card{
+  flex:0 0 calc((100% - 40px) / 3);
+  min-width:0;
+  scroll-snap-align:center;
+  transition:transform .25s ease,border-color .2s ease;
+}
+
+.ideas-strip .idea-card:hover{
+  border-color:#F51B78;
+}
+
+@media(max-width:1050px){
+  .ideas-strip .idea-card{
+    flex-basis:42%;
+  }
+}
+
+@media(max-width:700px){
+  .ideas-controls{
+    display:none;
+  }
+
+  .ideas-strip{
+    gap:16px;
+    padding:22px 10px 34px 4px;
+    scroll-padding-left:4px;
+  }
+
+  .ideas-strip .idea-card{
+    flex-basis:78%;
+    scroll-snap-align:start;
+  }
+}

@@ -68,3 +68,27 @@ No necesita backend para funcionar como catálogo.
   - Rosa muy claro: `#FCEBF1`
 - El fucsia `#F51B78` queda reservado para detalles, hover, labels, indicadores y CTAs puntuales.
 - La estrella de Personal Things Club continúa en bordó `#7A2345`.
+
+
+## CORE v4 — Sticketas in Real Life escalable
+
+La sección ahora se genera desde `realLifeItems` en `app.js`.
+
+Para agregar una imagen nueva:
+
+```js
+{
+  image: "./assets/images/lifestyle/nueva-foto.webp",
+  alt: "Descripción accesible de la foto",
+  caption: "texto corto de estilo editorial"
+}
+```
+
+No hace falta modificar el HTML.
+
+- Desktop: carrusel horizontal con flechas.
+- Tablet: cards más anchas.
+- Mobile: swipe horizontal nativo.
+- `scroll-snap` para acomodar cada foto al desplazarse.
+- Inclinación automática izquierda / derecha / recta.
+- Sin dependencias externas.
