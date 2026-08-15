@@ -163,11 +163,42 @@ closeCart.addEventListener("click",closeCartFn);
 backdrop.addEventListener("click",closeCartFn);
 
 document.querySelector(".checkout-btn").addEventListener("click",()=>{
+
+  const tel="5491158369279";
+
+  if (!cart.length){
+    return;
+  }
+
   const items=cart.map(i=>{
     const p=products.find(p=>p.id===i.id);
-    return `${i.qty}x ${p.name}`;
-  }).join("%0A");
-  alert("Demo: acá puede abrirse WhatsApp con el pedido prearmado. Despues reemplazamos por el numero real");
+
+    const subtotal = p.price * i.qty;
+
+    return `• ${i.qty}x ${p.name}
+    ${money(subtotal)}`;
+  }).join("\n\n");
+
+  const total = cart.reduce((acc, i) =>{
+    const product = products.find(p => p.id === i.id);
+
+    return acc + product.price * i.qty;
+  }, 0)
+
+  const message = `
+    Hola! Quiero hacer este pedido en Sticketas ✦
+
+    ${items}
+
+    Total: ${money(total)}
+      `.trim();
+
+  const whatsappUrl =
+    `https://wa.me/${tel}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, "_blank");
+
+  //alert("Demo: acá puede abrirse WhatsApp con el pedido prearmado. Despues reemplazamos por el numero real");
 });
 
 const searchPanel=document.querySelector("#searchPanel");
