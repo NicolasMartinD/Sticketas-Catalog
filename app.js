@@ -306,6 +306,11 @@ const realLifeItems = [
     image: "./assets/idea-package.svg",
     alt: "Packaging creativo con detalles Sticketas",
     caption: "made to make it yours"
+  },
+  {
+    image: "./assets/idea-cup.svg",
+    alt: "Termito con tu toque Sticketas",
+    caption: "Para que sea un poco mas vos"
   }
 ];
 
