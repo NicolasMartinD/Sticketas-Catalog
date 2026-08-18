@@ -349,6 +349,84 @@ function scrollIdeas(direction){
   });
 }
 
+function initSticketasMarquee() {
+  const marquee = document.querySelector(".sticketas-marquee");
+  const track = document.querySelector("#sticketasMarqueeTrack");
+  const originalGroup = document.querySelector("#sticketasMarqueeGroup");
+
+  if (!marquee || !track || !originalGroup) {
+    return;
+  }
+
+  /*
+    Eliminamos clones previos por si esta función
+    vuelve a ejecutarse después de un resize.
+  */
+  track
+    .querySelectorAll(".sticketas-marquee-group-clone")
+    .forEach(group => group.remove());
+
+  /*
+    Si el contenido original es demasiado corto para
+    cubrir la pantalla, repetimos sus elementos dentro
+    del mismo grupo.
+
+    Esto evita zonas blancas en monitores grandes.
+  */
+  const originalHTML = originalGroup.innerHTML;
+
+  while (
+    originalGroup.scrollWidth <
+    window.innerWidth * 1.25
+  ) {
+    originalGroup.insertAdjacentHTML(
+      "beforeend",
+      originalHTML
+    );
+  }
+
+  /*
+    Ahora clonamos TODO el grupo ya expandido.
+    Las dos partes son pixel-perfect iguales.
+  */
+  const clone = originalGroup.cloneNode(true);
+
+  clone.removeAttribute("id");
+  clone.classList.add(
+    "sticketas-marquee-group-clone"
+  );
+
+  track.appendChild(clone);
+
+  /*
+    Medimos exactamente el ancho que debe recorrer
+    la animación antes de volver al inicio.
+  */
+  const distance = originalGroup.getBoundingClientRect().width;
+
+  track.style.setProperty(
+    "--marquee-distance",
+    `${distance}px`
+  );
+
+  /*
+    Opcional:
+    velocidad constante independientemente de
+    cuánto contenido haya.
+
+    Aproximadamente 55px por segundo.
+  */
+  const pixelsPerSecond = 55;
+  const duration = distance / pixelsPerSecond;
+
+  track.style.setProperty(
+    "--marquee-duration",
+    `${duration}s`
+  );
+}
+
+initSticketasMarquee();
+
 ideasPrev?.addEventListener("click", () => scrollIdeas(-1));
 ideasNext?.addEventListener("click", () => scrollIdeas(1));
 

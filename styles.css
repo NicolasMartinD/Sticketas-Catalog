@@ -113,7 +113,7 @@ img{display:block;width:100%}
 .custom-copy>p{max-width:590px;font-size:16px;line-height:1.75;color:#504C47}
 .custom-points{display:flex;flex-direction:column;gap:10px;font-size:13px;margin:28px 0}
 .custom-copy small{display:block;margin-top:10px;color:var(--muted)}
-.about{border-top:1px solid var(--line);display:grid;grid-template-columns:.45fr 1.2fr .35fr;gap:4vw;align-items:start}
+.about{/* border-top:1px solid var(--line) ;*/display:grid;grid-template-columns:.45fr 1.2fr .35fr;gap:4vw;align-items:start}
 .about-label{font-size:10px;letter-spacing:.18em;font-weight:700}
 .about-content p{font-size:17px;line-height:1.8;max-width:730px}
 .about-stamp{border:1px solid var(--ink);width:150px;height:150px;border-radius:50%;display:grid;place-items:center;text-align:center;font-size:9px;font-weight:800;letter-spacing:.12em;transform:rotate(7deg)}
@@ -877,88 +877,150 @@ a:not(.pill):not(.brand-logo):hover,
   overflow: hidden;
 
   background: #F8F3EC;
+
   border-top: 1px solid rgba(23, 23, 23, .14);
   border-bottom: 1px solid rgba(23, 23, 23, .14);
 
   padding: 14px 0;
 }
 
-.marquee-track {
-  display: flex;
-  width: max-content;
-
-  animation: sticketas-marquee 30s linear infinite;
-}
-
-.marquee-content {
+/*
+  El track contiene dos grupos EXACTAMENTE iguales.
+*/
+.sticketas-marquee-track {
   display: flex;
   align-items: center;
-  gap: 28px;
 
-  padding-right: 28px;
+  width: max-content;
 
-  white-space: nowrap;
+  will-change: transform;
+
+  animation:
+    sticketasMarquee var(--marquee-duration, 35s)
+    linear
+    infinite;
 }
 
-.marquee-content span {
+/*
+  Importantísimo:
+  ningún grupo puede comprimirse.
+*/
+.sticketas-marquee-group {
+  display: flex;
+  align-items: center;
+
+  flex: 0 0 auto;
+
+  gap: 28px;
+
+  white-space: nowrap;
+
+  padding-right: 28px;
+}
+
+/* Texto */
+.sticketas-marquee-group span {
+  flex: 0 0 auto;
+
   color: #171717;
 
   font-size: 11px;
   font-weight: 700;
+
   letter-spacing: .12em;
+  text-transform: uppercase;
 }
 
-.marquee-content b {
+/* Estrellitas */
+.sticketas-marquee-group b {
+  flex: 0 0 auto;
+
   color: #F51B78;
+
   font-size: 12px;
   font-weight: 400;
 }
 
-@keyframes sticketas-marquee {
+/*
+  Ahora NO usamos -50%.
+  JS calcula exactamente cuánto mide un grupo.
+*/
+@keyframes sticketasMarquee {
   from {
     transform: translateX(0);
   }
 
   to {
-    transform: translateX(-50%);
+    transform: translateX(
+      calc(-1 * var(--marquee-distance))
+    );
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .sticketas-marquee-track {
     animation: none;
   }
 }
 
 .section-divider {
   position: relative;
+
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  gap: 12px;
 
   height: 70px;
-  background:linear-gradient(to bottom, var(--pink-mist), var(--cream));
+
+  background: #F8F3EC;
+}
+
+div[name="section-a"]{
+  background: linear-gradient(to bottom, var(--cream), #fff);
 }
 
 .section-divider::before {
   content: "";
+
   position: absolute;
   left: 4%;
   right: 4%;
 
-  border-top: 1px dashed rgba(23, 23, 23, .25);
+  height: 1px;
+
+  background: repeating-linear-gradient(
+    to right,
+    rgba(23, 23, 23, .22) 0,
+    rgba(23, 23, 23, .22) 6px,
+    transparent 6px,
+    transparent 14px
+  );
 }
 
-.section-divider span {
+.divider-logo,
+.divider-star {
   position: relative;
   z-index: 1;
 
   background: #F8F3EC;
-  padding: 0 18px;
+}
 
+.divider-logo {
+  width: 100px;
+  height: auto;
+  background: #F8F3EC;
+
+  object-fit: contain;
+
+  padding: 0 4px;
+}
+
+.divider-star {
   color: #F51B78;
 
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .14em;
+  font-size: 18px;
+
+  padding: 0 2px;
 }
